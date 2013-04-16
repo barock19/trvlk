@@ -21,13 +21,18 @@ module Traveloka
 		end
 
 		def get_flight_number
+			str = source["SEG"][0]
+			str.split(".").first
 		end
 		
 		def get_airline_code
+			str_trg = source['SEG'][0]
+			list = str_trg.split(".")
+			list[list.size-2]
 		end
 		
 		def get_publish_fare
-			str = source["SEG"][0]
+			str = source["RI"][0]
 			str.split(".")[5].to_i
 		end
 		

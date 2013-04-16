@@ -5,6 +5,8 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require "traveloka"
+Dir[File.dirname(__FILE__)+"/support/*.rb"].each {|f| require f}
+# require File.dirname(__FILE__) + '/support/utils.rb'
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
@@ -17,4 +19,3 @@ RSpec.configure do |config|
   # config.order = 'random'
 end
 RESULT_DUMMY = JSON.parse(File.open(File.dirname(__FILE__) + '/dummy_result.json', "r").read)
-require File.dirname(__FILE__) + '/support'

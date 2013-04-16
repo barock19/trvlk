@@ -1,3 +1,4 @@
+
 class DummyModel
 	attr_accessor :flight_date, :origin, :destination, :adults , :children
 	def initialize *args

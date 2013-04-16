@@ -1,7 +1,4 @@
 require 'spec_helper'
-shared_examples_for 'valid airport code' do
-	it{should match(/[A-Z]{3,}/)}
-end
  describe Traveloka::Flight do
  		include DummySupport
  		subject{flight}
@@ -13,12 +10,12 @@ end
   	# it{should respond_to(:search_object)}
   	describe '#takeoff_at' do
   		subject{flight.takeoff_at}
-  		it{should be_an_instance_of(Time)}
+		 	it_behaves_like 'instance of Time'
 	  	it{should < @flight.landing_at}
 	  end
   	describe "#landing_at" do
 			subject{flight.landing_at}
-  		it{should be_an_instance_of(Time)}
+		 	it_behaves_like 'instance of Time'
 	  	it {should > @flight.takeoff_at}
 	  end
 	  describe "#publish_fare" do
@@ -27,7 +24,7 @@ end
 	  	it{should > 0}
 	  end
 	  describe "#airline_code" do
-	  	xit{flight.airline_code.should be_on_off}
+	  	it{flight.airline_code.should match Regexp.new("^(#{Traveloka::Base::AIRLINE_ISO_CODE.keys.join("|")})$")}
 	  end
 	  describe "#origin" do
 	  	subject{flight.origin}
@@ -36,6 +33,10 @@ end
 	  describe "#destination" do
 	  	subject{flight.destination}
 			it_behaves_like 'valid airport code'
+	  end
+	  describe "#flight_number" do
+	  	subject{flight.flight_number}
+	  	it{should match /[A-Z]+\-\d+/}
 	  end
 
  end 
