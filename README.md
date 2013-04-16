@@ -1,4 +1,5 @@
 # Traveloka
+* [![build status](https://secure.travis-ci.org/barock19/trvlk.png)](https://travis-ci.org/barock19/trvlk) travis-ci.org (master branch)
 
 TODO: Write a gem description
 
