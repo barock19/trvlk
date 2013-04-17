@@ -10,6 +10,11 @@
 				build!
 			end
 
+			def as_json(options = { })
+				ori_attr = [:total_price, :origin, :destination, :start_at, :end_at]
+			 	Hash[ ori_attr.zip(ori_attr.map{|v| instance_variable_get("@#{v}".to_sym) }) ].merge(
+			 		:flights => flights.map{|r| r.as_json })
+			end
 
 			def build!
 				SERIALIZEABLE.each do |v|

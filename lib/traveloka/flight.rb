@@ -13,6 +13,9 @@ module Traveloka
 			@source = @raw_source['CFR'][index]
 			build!
 		end
+		def as_json option = {}
+			Hash[ SERIALIZEABLE.zip(SERIALIZEABLE.map{|v| instance_variable_get("@#{v}".to_sym) }) ]
+		end
 
 		def build!
 			SERIALIZEABLE.each do |v|

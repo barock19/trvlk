@@ -34,7 +34,7 @@ module DummySupport
 		@flight_collection ||= Traveloka::FlightsCollection.new(dummy_model, RESULT_DUMMY)
 	end
 	def flight_set
-		@flight_set ||= Traveloka::FlightSet.new(flight_collection, RESULT_DUMMY['data'][0])
+		@flight_set ||= Traveloka::FlightSet.new(flight_collection, RESULT_DUMMY['data'][rand(RESULT_DUMMY['data'].size - 1)])
 	end 
 	def flight
 		@flight ||= Traveloka::Flight.new(flight_set)

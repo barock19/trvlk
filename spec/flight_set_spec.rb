@@ -15,10 +15,4 @@ describe Traveloka::FlightSet do
 	 	it_behaves_like 'instance of Time'
 	 	it{should == @flight_set.flights.last.landing_at}
 	end
-
-	describe '#total_price' do
-		subject{flight_set.total_price}
-		it{should be_an_instance_of(Fixnum)}
-	end
-
 end

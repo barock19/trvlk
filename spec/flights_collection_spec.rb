@@ -1,13 +1,23 @@
 require 'spec_helper'
  
 describe Traveloka::FlightsCollection do
-	before(:each) do
-	  @search_object = DummyModel.new(:flight_date => (Time.now+2.day).to_date, :origin => 'CGK', :destination => 'DPS')
-	  @fc = Traveloka::FlightsCollection.new @search_object , RESULT_DUMMY
+	include DummySupport
+	subject{flight_collection}
+	describe '#flights' do
+		subject{flight_collection.flight_sets}	
+		it{should be_an_instance_of(Array)}
+		describe '#first'do
+			subject{flight_collection.flight_sets.first}	
+			it{should be_an_instance_of(Traveloka::FlightSet)}
+		end
 	end
-	subject{@fc}
-	# it{should respond_to(:search_object)}
-	# it{should respond_to(:raw_source)}
-	# it{should respond_to(:flights)}
-	# it{should respond_to(:build!)}
+	describe "#as_json" do
+		subject{flight_collection.as_json}
+		it{should be_an_instance_of(Array)}
+		describe "#first" do
+			subject{flight_collection.as_json.first}
+			it{should be_an_instance_of(Hash)}
+		end
+	end
+
 end
