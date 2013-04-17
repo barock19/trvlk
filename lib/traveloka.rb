@@ -1,5 +1,6 @@
 require "json"
 require "active_support/all"
+require "mechanize"
 require "traveloka/version"
 require "traveloka/base"
 require "traveloka/flights_collection"

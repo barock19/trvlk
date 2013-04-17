@@ -1,10 +1,9 @@
 module Traveloka
 	class Flight
-		SERIALIZEABLE = [:flight_number, :airline_code, :publish_fare, :takeoff_at , :landing_at , :promo, :origin, :destination]
+		SERIALIZEABLE = [:flight_number, :airline_code, :publish_fare, :takeoff_at , :landing_at , :promo, :origin, :destination, :airline]
 		attr_reader *SERIALIZEABLE
 		attr_reader :search_object, :source, :flight_set
-		def initialize flight_set , index = 0
-			
+		def initialize flight_set , index = 0	
 			@flight_set = flight_set
 			@raw_source = @flight_set.raw_source
 			@flight_collection = @flight_set.flight_collection
@@ -12,6 +11,13 @@ module Traveloka
 			
 			@source = @raw_source['CFR'][index]
 			build!
+		end
+		def inspect
+			to_a
+		end
+		
+		def to_a
+			as_json 
 		end
 		def as_json option = {}
 			Hash[ SERIALIZEABLE.zip(SERIALIZEABLE.map{|v| instance_variable_get("@#{v}".to_sym) }) ]
@@ -27,7 +33,9 @@ module Traveloka
 			str = source["SEG"][0]
 			str.split(".").first
 		end
-		
+		def get_airline
+			Base::AIRLINE_ISO_CODE[get_airline_code]
+		end
 		def get_airline_code
 			str_trg = source['SEG'][0]
 			list = str_trg.split(".")
