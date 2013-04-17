@@ -31,7 +31,7 @@ module DummySupport
 		@dummy_model ||= DummyModel.new(:flight_date => (Time.now+2.day).to_date, :origin => 'CGK', :destination => 'DPS')
 	end
 	def flight_collection
-		@flight_collection ||= Traveloka::FlightsCollection.new(dummy_model, RESULT_DUMMY)
+		@flight_collection ||= Traveloka::FlightsCollection.new(dummy_model, RESULT_DUMMY['data'])
 	end
 	def flight_set
 		@flight_set ||= Traveloka::FlightSet.new(flight_collection, RESULT_DUMMY['data'][rand(RESULT_DUMMY['data'].size - 1)])
