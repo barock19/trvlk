@@ -14,7 +14,6 @@ module Traveloka
 			@model = model
 			@agent = Mechanize.new
 			@agent.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31"
-			@agent.log = Logger.new('./agent.log')
 			@raw_source = {
 				'data' => {},
 				'metadata' => {
