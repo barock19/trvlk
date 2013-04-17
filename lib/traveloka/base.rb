@@ -31,7 +31,7 @@ module Traveloka
 				@search_counter += 1
 				sleep 1
 			end
-			@result
+			result
 		end
 
 		def result

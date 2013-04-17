@@ -9,4 +9,7 @@ require "traveloka/flight"
 
 
 module Traveloka
+	def self.search model
+		Base.new(model).search!
+	end
 end
