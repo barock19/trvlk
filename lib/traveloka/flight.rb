@@ -49,14 +49,14 @@ module Traveloka
 		
 		def get_takeoff_at
 			str_trg = source['SEG'][0]
-			md = str_trg.match /[A-Z]+-\d+\.[A-Z]+.[A-Z]+.(?<target>\d+.\d+)./
-			"#{search_object.flight_date.strftime("%d-%m-%Y")} #{md[:target].gsub('.', ':')}".to_time(:local)
+			meta = str_trg.split('.')
+			"#{search_object.flight_date.strftime("%d-%m-%Y")} #{'%2d' % meta[3].to_i}:#{'%2d' % meta[4].to_i}".to_time(:local)
 		end
 
 		def get_landing_at
 			str_trg = source['SEG'][0]
-			md = str_trg.match /[A-Z]+-\d+\.[A-Z]+.[A-Z]+.\d+.\d+\.(?<target>\d+.\d+)./
-			"#{search_object.flight_date.strftime("%d-%m-%Y")} #{md[:target].gsub('.', ':')}".to_time(:local)
+			meta = str_trg.split('.')
+			"#{search_object.flight_date.strftime("%d-%m-%Y")} #{'%2d' % meta[5].to_i}:#{'%2d' % meta[6].to_i}".to_time(:local)
 
 		end
 

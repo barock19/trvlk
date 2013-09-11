@@ -21,6 +21,8 @@ describe Traveloka::Base do
 			end
 			context "after search!" do
 				before(:each) do
+					stub(subject).to_home{nil}
+					stub(subject).page_search{nil}
 					stub(subject)._search{nil}
 					stub(subject).complete?{true}
 					stub(subject).result_raw{[1,2,3]}

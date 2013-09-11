@@ -26,9 +26,13 @@ module Traveloka
 		end
 
 		def search!
-			while complete? == false or @search_counter >= 10
+			to_home
+			page_search
+
+			while @search_counter < 10
 				_search
 				@search_counter += 1
+				puts "#{@search_counter} try"
 				sleep 1
 			end
 			result
@@ -47,16 +51,14 @@ module Traveloka
 
 		def _search
 			begin
-				url = "http://traveloka.com/flightsearch?getNewResult=#{@search_counter >= 1 ? 'false' : 'true' }"
+				url = "http://www.traveloka.com/flightsearch?getNewResult=#{@search_counter >= 1 ? 'false' : 'true' }"
 				raw_body = agent.post(url, build_request_body.to_json, {
 					"Content-Type" => "application/json; charset=UTF-8", 
-					'Origin' => 'http://traveloka.com',
 					'Accept-Charset'=> 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
 					})
 				@raw_source = JSON.parse(raw_body.body)
 				@result_raw += @raw_source['data']	
 			rescue Exception => e
-				puts e.message
 				raise e
 			end
 
@@ -65,7 +67,13 @@ module Traveloka
 		def complete?
 			(raw_source['metadata'] and raw_source['metadata']['searchCompleted'] and  raw_source['metadata']['searchCompleted'] == 'true') == true ? true : false
 		end
-
+		def to_home
+			agent.get 'http://www.traveloka.com'
+		end
+		def page_search
+			# http://www.traveloka.com/fullsearch?ap=CGK.DPS&dt=19-09-2013.NA&ps=1.0.0
+			agent.get "http://www.traveloka.com/fullsearch?ap=#{model.origin}.#{model.destination}&dt=#{model.flight_date.strftime('%d-%m-%Y')}.NA&ps=#{model.adults}.#{model.children}.#{model.infants}"
+		end
 		def build_request_body
 			body_request = {
 				'data' => {
